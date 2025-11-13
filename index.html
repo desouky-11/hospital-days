@@ -3,13 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>حاسبة أيام الحضور الشهرية</title>
+    <title>حاسبة أيام الحضور المتقدمة</title>
     <link rel="stylesheet" href="./css/style.css">
 </head>
 <body>
     <div class="container">
         <header>
-            <h1>حاسبة أيام الحضور الشهرية والسنوية</h1>
+            <h1>حاسبة أيام الحضور المتقدمة</h1>
+            <p class="subtitle">نظام متكامل لتقارير الحضور الشهرية والسنوية</p>
         </header>
 
         <main class="main-content">
@@ -74,6 +75,36 @@
                 </div>
             </div>
 
+            <!-- قسم نوع التقرير -->
+            <div class="report-type-section">
+                <h2>نوع التقرير</h2>
+                <div class="report-types">
+                    <label class="report-type-label">
+                        <input type="radio" name="reportType" value="monthly" checked>
+                        <span class="report-type-box">
+                            <span class="report-type-title">تقرير شهري</span>
+                            <span class="report-type-desc">حساب شهر واحد محدد</span>
+                        </span>
+                    </label>
+                    
+                    <label class="report-type-label">
+                        <input type="radio" name="reportType" value="range">
+                        <span class="report-type-box">
+                            <span class="report-type-title">تقرير نطاق شهور</span>
+                            <span class="report-type-desc">حساب من شهر إلى شهر</span>
+                        </span>
+                    </label>
+                    
+                    <label class="report-type-label">
+                        <input type="radio" name="reportType" value="annual">
+                        <span class="report-type-box">
+                            <span class="report-type-title">تقرير سنوي</span>
+                            <span class="report-type-desc">حساب كامل السنة</span>
+                        </span>
+                    </label>
+                </div>
+            </div>
+
             <!-- قسم الإدخال -->
             <div class="input-section">
                 <div class="form-group">
@@ -83,36 +114,71 @@
                     </select>
                 </div>
 
-                <div class="form-group">
-                    <label for="monthSelect">اختر الشهر:</label>
-                    <select id="monthSelect" class="form-control">
-                        <option value="0">جميع أشهر السنة</option>
-                        <option value="1">يناير</option>
-                        <option value="2">فبراير</option>
-                        <option value="3">مارس</option>
-                        <option value="4">أبريل</option>
-                        <option value="5">مايو</option>
-                        <option value="6">يونيو</option>
-                        <option value="7">يوليو</option>
-                        <option value="8">أغسطس</option>
-                        <option value="9">سبتمبر</option>
-                        <option value="10">أكتوبر</option>
-                        <option value="11">نوفمبر</option>
-                        <option value="12">ديسمبر</option>
-                    </select>
+                <!-- إدخال التقرير الشهري -->
+                <div id="monthlyInput" class="report-input">
+                    <div class="form-group">
+                        <label for="monthSelect">اختر الشهر:</label>
+                        <select id="monthSelect" class="form-control">
+                            <option value="1">يناير</option>
+                            <option value="2">فبراير</option>
+                            <option value="3">مارس</option>
+                            <option value="4">أبريل</option>
+                            <option value="5">مايو</option>
+                            <option value="6">يونيو</option>
+                            <option value="7">يوليو</option>
+                            <option value="8">أغسطس</option>
+                            <option value="9">سبتمبر</option>
+                            <option value="10">أكتوبر</option>
+                            <option value="11">نوفمبر</option>
+                            <option value="12">ديسمبر</option>
+                        </select>
+                    </div>
                 </div>
 
-                <div class="form-group">
-                    <label class="checkbox-container">
-                        <input type="checkbox" id="annualCalculation">
-                        <span class="checkmark"></span>
-                        الحساب السنوي (جميع أشهر السنة)
-                    </label>
+                <!-- إدخال نطاق الشهور -->
+                <div id="rangeInput" class="report-input" style="display: none;">
+                    <div class="range-inputs">
+                        <div class="form-group">
+                            <label for="startMonth">الشهر الأول:</label>
+                            <select id="startMonth" class="form-control">
+                                <option value="1">يناير</option>
+                                <option value="2">فبراير</option>
+                                <option value="3">مارس</option>
+                                <option value="4">أبريل</option>
+                                <option value="5">مايو</option>
+                                <option value="6">يونيو</option>
+                                <option value="7">يوليو</option>
+                                <option value="8">أغسطس</option>
+                                <option value="9">سبتمبر</option>
+                                <option value="10">أكتوبر</option>
+                                <option value="11">نوفمبر</option>
+                                <option value="12">ديسمبر</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="endMonth">الشهر الأخير:</label>
+                            <select id="endMonth" class="form-control">
+                                <option value="1">يناير</option>
+                                <option value="2">فبراير</option>
+                                <option value="3">مارس</option>
+                                <option value="4">أبريل</option>
+                                <option value="5">مايو</option>
+                                <option value="6">يونيو</option>
+                                <option value="7">يوليو</option>
+                                <option value="8">أغسطس</option>
+                                <option value="9">سبتمبر</option>
+                                <option value="10">أكتوبر</option>
+                                <option value="11">نوفمبر</option>
+                                <option value="12">ديسمبر</option>
+                            </select>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="buttons-container">
-                    <button id="calculateBtn" class="calculate-btn">احسب عدد أيام الحضور</button>
-                    <button id="saveBtn" class="save-btn">حفظ السنة بالكامل كملف نصي</button>
+                    <button id="calculateBtn" class="calculate-btn">احسب التقرير</button>
+                    <button id="saveBtn" class="save-btn">حفظ التقرير كملف نصي</button>
                 </div>
             </div>
 
@@ -120,7 +186,8 @@
             <div class="results-section">
                 <h2>نتائج الحساب</h2>
                 
-                <div id="monthlyResults" class="monthly-results">
+                <!-- نتائج الشهر الواحد -->
+                <div id="monthlyResults" class="report-results">
                     <div class="result-group">
                         <div class="result-item">
                             <span class="result-label group-a">المجموعة الأولى:</span>
@@ -155,8 +222,38 @@
                     </div>
                 </div>
 
+                <!-- نتائج نطاق الشهور -->
+                <div id="rangeResults" class="report-results" style="display: none;">
+                    <h3 id="rangeTitle">نتائج نطاق الشهور</h3>
+                    <div class="range-table-container">
+                        <table class="range-table">
+                            <thead>
+                                <tr>
+                                    <th>الشهر</th>
+                                    <th>المجموعة الأولى</th>
+                                    <th>المجموعة الثانية</th>
+                                    <th>الإجمالي</th>
+                                    <th>أيام الإجازة</th>
+                                </tr>
+                            </thead>
+                            <tbody id="rangeTableBody">
+                                <!-- سيتم تعبئته بالجافاسكريبت -->
+                            </tbody>
+                            <tfoot>
+                                <tr class="range-total">
+                                    <td>المجموع</td>
+                                    <td id="rangeGroup1Total">0</td>
+                                    <td id="rangeGroup2Total">0</td>
+                                    <td id="rangeDaysTotal">0</td>
+                                    <td id="rangeWeekendTotal">0</td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+
                 <!-- نتائج السنة -->
-                <div id="annualResults" class="annual-results" style="display: none;">
+                <div id="annualResults" class="report-results" style="display: none;">
                     <h3>نتائج السنة الكاملة</h3>
                     <div class="annual-table-container">
                         <table class="annual-table">
