@@ -10,7 +10,7 @@
     <div class="container">
         <header>
             <h1>حاسبة أيام الحضور المتقدمة</h1>
-            <p class="subtitle">نظام متكامل لتقارير الحضور الشهرية والسنوية</p>
+            <p class="subtitle">نظام متكامل لتقارير الحضور الشهرية والسنوية والفترات الزمنية</p>
         </header>
 
         <main class="main-content">
@@ -91,7 +91,7 @@
                         <input type="radio" name="reportType" value="range">
                         <span class="report-type-box">
                             <span class="report-type-title">تقرير نطاق شهور</span>
-                            <span class="report-type-desc">حساب من شهر إلى شهر</span>
+                            <span class="report-type-desc">حساب من شهر إلى شهر في سنة واحدة</span>
                         </span>
                     </label>
                     
@@ -102,20 +102,28 @@
                             <span class="report-type-desc">حساب كامل السنة</span>
                         </span>
                     </label>
+
+                    <label class="report-type-label">
+                        <input type="radio" name="reportType" value="period">
+                        <span class="report-type-box">
+                            <span class="report-type-title">تقرير فترة زمنية</span>
+                            <span class="report-type-desc">حساب بين سنتين مختلفتين</span>
+                        </span>
+                    </label>
                 </div>
             </div>
 
             <!-- قسم الإدخال -->
             <div class="input-section">
-                <div class="form-group">
-                    <label for="yearSelect">اختر السنة:</label>
-                    <select id="yearSelect" class="form-control">
-                        <!-- سيتم تعبئته بالجافاسكريبت -->
-                    </select>
-                </div>
-
                 <!-- إدخال التقرير الشهري -->
                 <div id="monthlyInput" class="report-input">
+                    <div class="form-group">
+                        <label for="yearSelect">اختر السنة:</label>
+                        <select id="yearSelect" class="form-control">
+                            <!-- سيتم تعبئته بالجافاسكريبت -->
+                        </select>
+                    </div>
+
                     <div class="form-group">
                         <label for="monthSelect">اختر الشهر:</label>
                         <select id="monthSelect" class="form-control">
@@ -137,6 +145,13 @@
 
                 <!-- إدخال نطاق الشهور -->
                 <div id="rangeInput" class="report-input" style="display: none;">
+                    <div class="form-group">
+                        <label for="rangeYearSelect">اختر السنة:</label>
+                        <select id="rangeYearSelect" class="form-control">
+                            <!-- سيتم تعبئته بالجافاسكريبت -->
+                        </select>
+                    </div>
+
                     <div class="range-inputs">
                         <div class="form-group">
                             <label for="startMonth">الشهر الأول:</label>
@@ -176,6 +191,75 @@
                     </div>
                 </div>
 
+                <!-- إدخال التقرير السنوي -->
+                <div id="annualInput" class="report-input" style="display: none;">
+                    <div class="form-group">
+                        <label for="annualYearSelect">اختر السنة:</label>
+                        <select id="annualYearSelect" class="form-control">
+                            <!-- سيتم تعبئته بالجافاسكريبت -->
+                        </select>
+                    </div>
+                </div>
+
+                <!-- إدخال الفترة الزمنية -->
+                <div id="periodInput" class="report-input" style="display: none;">
+                    <div class="period-inputs">
+                        <div class="period-group">
+                            <h4>تاريخ البداية</h4>
+                            <div class="form-group">
+                                <label for="startYear">سنة البداية:</label>
+                                <select id="startYear" class="form-control">
+                                    <!-- سيتم تعبئته بالجافاسكريبت -->
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="startMonthPeriod">شهر البداية:</label>
+                                <select id="startMonthPeriod" class="form-control">
+                                    <option value="1">يناير</option>
+                                    <option value="2">فبراير</option>
+                                    <option value="3">مارس</option>
+                                    <option value="4">أبريل</option>
+                                    <option value="5">مايو</option>
+                                    <option value="6">يونيو</option>
+                                    <option value="7">يوليو</option>
+                                    <option value="8">أغسطس</option>
+                                    <option value="9">سبتمبر</option>
+                                    <option value="10">أكتوبر</option>
+                                    <option value="11">نوفمبر</option>
+                                    <option value="12">ديسمبر</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="period-group">
+                            <h4>تاريخ النهاية</h4>
+                            <div class="form-group">
+                                <label for="endYear">سنة النهاية:</label>
+                                <select id="endYear" class="form-control">
+                                    <!-- سيتم تعبئته بالجافاسكريبت -->
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="endMonthPeriod">شهر النهاية:</label>
+                                <select id="endMonthPeriod" class="form-control">
+                                    <option value="1">يناير</option>
+                                    <option value="2">فبراير</option>
+                                    <option value="3">مارس</option>
+                                    <option value="4">أبريل</option>
+                                    <option value="5">مايو</option>
+                                    <option value="6">يونيو</option>
+                                    <option value="7">يوليو</option>
+                                    <option value="8">أغسطس</option>
+                                    <option value="9">سبتمبر</option>
+                                    <option value="10">أكتوبر</option>
+                                    <option value="11">نوفمبر</option>
+                                    <option value="12">ديسمبر</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="buttons-container">
                     <button id="calculateBtn" class="calculate-btn">احسب التقرير</button>
                     <button id="saveBtn" class="save-btn">حفظ التقرير كملف نصي</button>
@@ -188,6 +272,9 @@
                 
                 <!-- نتائج الشهر الواحد -->
                 <div id="monthlyResults" class="report-results">
+                    <div class="result-header">
+                        <h3 id="monthlyTitle">نتائج الشهر</h3>
+                    </div>
                     <div class="result-group">
                         <div class="result-item">
                             <span class="result-label group-a">المجموعة الأولى:</span>
@@ -224,7 +311,9 @@
 
                 <!-- نتائج نطاق الشهور -->
                 <div id="rangeResults" class="report-results" style="display: none;">
-                    <h3 id="rangeTitle">نتائج نطاق الشهور</h3>
+                    <div class="result-header">
+                        <h3 id="rangeTitle">نتائج نطاق الشهور</h3>
+                    </div>
                     <div class="range-table-container">
                         <table class="range-table">
                             <thead>
@@ -254,7 +343,9 @@
 
                 <!-- نتائج السنة -->
                 <div id="annualResults" class="report-results" style="display: none;">
-                    <h3>نتائج السنة الكاملة</h3>
+                    <div class="result-header">
+                        <h3 id="annualTitle">نتائج السنة الكاملة</h3>
+                    </div>
                     <div class="annual-table-container">
                         <table class="annual-table">
                             <thead>
@@ -276,6 +367,38 @@
                                     <td id="annualGroup2Total">0</td>
                                     <td id="annualDaysTotal">0</td>
                                     <td id="annualWeekendTotal">0</td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- نتائج الفترة الزمنية -->
+                <div id="periodResults" class="report-results" style="display: none;">
+                    <div class="result-header">
+                        <h3 id="periodTitle">نتائج الفترة الزمنية</h3>
+                    </div>
+                    <div class="period-table-container">
+                        <table class="period-table">
+                            <thead>
+                                <tr>
+                                    <th>الشهر</th>
+                                    <th>المجموعة الأولى</th>
+                                    <th>المجموعة الثانية</th>
+                                    <th>الإجمالي</th>
+                                    <th>أيام الإجازة</th>
+                                </tr>
+                            </thead>
+                            <tbody id="periodTableBody">
+                                <!-- سيتم تعبئته بالجافاسكريبت -->
+                            </tbody>
+                            <tfoot>
+                                <tr class="period-total">
+                                    <td>المجموع الكلي</td>
+                                    <td id="periodGroup1Total">0</td>
+                                    <td id="periodGroup2Total">0</td>
+                                    <td id="periodDaysTotal">0</td>
+                                    <td id="periodWeekendTotal">0</td>
                                 </tr>
                             </tfoot>
                         </table>
