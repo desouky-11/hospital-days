@@ -9,10 +9,72 @@
 <body>
     <div class="container">
         <header>
-            <h1>حاسبة أيام الحضور الشهرية</h1>
+            <h1>حاسبة أيام الحضور الشهرية والسنوية</h1>
         </header>
 
         <main class="main-content">
+            <!-- قسم إعداد المجموعات -->
+            <div class="groups-section">
+                <h2>إعداد المجموعات</h2>
+                
+                <div class="groups-container">
+                    <div class="group-setup">
+                        <h3 class="group-a">المجموعة الأولى</h3>
+                        <div class="days-checkboxes">
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="group1" value="6" checked> السبت
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="group1" value="0"> الأحد
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="group1" value="1" checked> الإثنين
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="group1" value="2"> الثلاثاء
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="group1" value="3" checked> الأربعاء
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="group1" value="4"> الخميس
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="group1" value="5"> الجمعة
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="group-setup">
+                        <h3 class="group-b">المجموعة الثانية</h3>
+                        <div class="days-checkboxes">
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="group2" value="6"> السبت
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="group2" value="0" checked> الأحد
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="group2" value="1"> الإثنين
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="group2" value="2" checked> الثلاثاء
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="group2" value="3"> الأربعاء
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="group2" value="4" checked> الخميس
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="group2" value="5"> الجمعة
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- قسم الإدخال -->
             <div class="input-section">
                 <div class="form-group">
                     <label for="yearSelect">اختر السنة:</label>
@@ -24,6 +86,7 @@
                 <div class="form-group">
                     <label for="monthSelect">اختر الشهر:</label>
                     <select id="monthSelect" class="form-control">
+                        <option value="0">جميع أشهر السنة</option>
                         <option value="1">يناير</option>
                         <option value="2">فبراير</option>
                         <option value="3">مارس</option>
@@ -39,42 +102,86 @@
                     </select>
                 </div>
 
-                <button id="calculateBtn" class="calculate-btn">احسب عدد أيام الحضور</button>
+                <div class="form-group">
+                    <label class="checkbox-container">
+                        <input type="checkbox" id="annualCalculation">
+                        <span class="checkmark"></span>
+                        الحساب السنوي (جميع أشهر السنة)
+                    </label>
+                </div>
+
+                <div class="buttons-container">
+                    <button id="calculateBtn" class="calculate-btn">احسب عدد أيام الحضور</button>
+                    <button id="saveBtn" class="save-btn">حفظ السنة بالكامل كملف نصي</button>
+                </div>
             </div>
 
+            <!-- قسم النتائج -->
             <div class="results-section">
                 <h2>نتائج الحساب</h2>
                 
-                <div class="result-group">
-                    <div class="result-item">
-                        <span class="result-label group-a">المجموعة أ:</span>
-                        <span id="group1Result" class="result-value">0 يوم</span>
-                        <span class="result-days">(السبت، الاثنين، الأربعاء)</span>
+                <div id="monthlyResults" class="monthly-results">
+                    <div class="result-group">
+                        <div class="result-item">
+                            <span class="result-label group-a">المجموعة الأولى:</span>
+                            <span id="group1Result" class="result-value">0 يوم</span>
+                            <span id="group1Days" class="result-days">(سيظهر اختيارك هنا)</span>
+                        </div>
+                        
+                        <div class="result-item">
+                            <span class="result-label group-b">المجموعة الثانية:</span>
+                            <span id="group2Result" class="result-value">0 يوم</span>
+                            <span id="group2Days" class="result-days">(سيظهر اختيارك هنا)</span>
+                        </div>
+                        
+                        <div class="result-item total">
+                            <span class="result-label total-label">إجمالي أيام الشهر:</span>
+                            <span id="totalResult" class="result-value">0 يوم</span>
+                        </div>
                     </div>
-                    
-                    <div class="result-item">
-                        <span class="result-label group-b">المجموعة ب:</span>
-                        <span id="group2Result" class="result-value">0 يوم</span>
-                        <span class="result-days">(الأحد، الثلاثاء، الخميس)</span>
-                    </div>
-                    
-                    <div class="result-item total">
-                        <span class="result-label total-label">إجمالي أيام الشهر:</span>
-                        <span id="totalResult" class="result-value">0 يوم</span>
+
+                    <div class="details-section">
+                        <h3>تفاصيل إضافية</h3>
+                        
+                        <div class="detail-item">
+                            <span class="detail-label">عدد أيام الإجازة (الجمعة):</span>
+                            <span id="weekendResult" class="detail-value">0 يوم</span>
+                        </div>
+                        
+                        <div class="detail-item">
+                            <span class="detail-label">عدد أيام العمل (السبت إلى الخميس):</span>
+                            <span id="workdaysResult" class="detail-value">0 يوم</span>
+                        </div>
                     </div>
                 </div>
 
-                <div class="details-section">
-                    <h3>تفاصيل إضافية</h3>
-                    
-                    <div class="detail-item">
-                        <span class="detail-label">عدد أيام الإجازة (الجمعة):</span>
-                        <span id="weekendResult" class="detail-value">0 يوم</span>
-                    </div>
-                    
-                    <div class="detail-item">
-                        <span class="detail-label">عدد أيام العمل (السبت إلى الخميس):</span>
-                        <span id="workdaysResult" class="detail-value">0 يوم</span>
+                <!-- نتائج السنة -->
+                <div id="annualResults" class="annual-results" style="display: none;">
+                    <h3>نتائج السنة الكاملة</h3>
+                    <div class="annual-table-container">
+                        <table class="annual-table">
+                            <thead>
+                                <tr>
+                                    <th>الشهر</th>
+                                    <th>المجموعة الأولى</th>
+                                    <th>المجموعة الثانية</th>
+                                    <th>الإجمالي</th>
+                                    <th>أيام الإجازة</th>
+                                </tr>
+                            </thead>
+                            <tbody id="annualTableBody">
+                                <!-- سيتم تعبئته بالجافاسكريبت -->
+                            </tbody>
+                            <tfoot>
+                                <tr class="annual-total">
+                                    <td>المجموع السنوي</td>
+                                    <td id="annualGroup1Total">0</td>
+                                    <td id="annualGroup2Total">0</td>
+                                    <td id="annualDaysTotal">0</td>
+                                    <td id="annualWeekendTotal">0</td>
+                                </tr>
+                            </tfoot>
+                        </table>
                     </div>
                 </div>
             </div>
