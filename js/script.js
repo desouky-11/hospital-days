@@ -7,9 +7,6 @@ const months = [
 // العناصر في الصفحة
 const yearSelect = document.getElementById('yearSelect');
 const monthSelect = document.getElementById('monthSelect');
-const rangeYearSelect = document.getElementById('rangeYearSelect');
-const startMonth = document.getElementById('startMonth');
-const endMonth = document.getElementById('endMonth');
 const annualYearSelect = document.getElementById('annualYearSelect');
 const startYear = document.getElementById('startYear');
 const startMonthPeriod = document.getElementById('startMonthPeriod');
@@ -29,26 +26,19 @@ const workdaysResult = document.getElementById('workdaysResult');
 
 // عناوين النتائج
 const monthlyTitle = document.getElementById('monthlyTitle');
-const rangeTitle = document.getElementById('rangeTitle');
 const annualTitle = document.getElementById('annualTitle');
 const periodTitle = document.getElementById('periodTitle');
 
 // أقسام النتائج
 const monthlyResults = document.getElementById('monthlyResults');
-const rangeResults = document.getElementById('rangeResults');
 const annualResults = document.getElementById('annualResults');
 const periodResults = document.getElementById('periodResults');
 
 // جداول النتائج
-const rangeTableBody = document.getElementById('rangeTableBody');
 const annualTableBody = document.getElementById('annualTableBody');
 const periodTableBody = document.getElementById('periodTableBody');
 
 // مجاميع النتائج
-const rangeGroup1Total = document.getElementById('rangeGroup1Total');
-const rangeGroup2Total = document.getElementById('rangeGroup2Total');
-const rangeDaysTotal = document.getElementById('rangeDaysTotal');
-const rangeWeekendTotal = document.getElementById('rangeWeekendTotal');
 const annualGroup1Total = document.getElementById('annualGroup1Total');
 const annualGroup2Total = document.getElementById('annualGroup2Total');
 const annualDaysTotal = document.getElementById('annualDaysTotal');
@@ -64,7 +54,7 @@ let currentReportType = 'monthly';
 // تهيئة التطبيق
 function initApp() {
     initYears();
-    setCurrentMonth();
+    setDefaultDates();
     updateSelectedDaysDisplay();
     
     // إضافة مستمعي الأحداث
@@ -81,6 +71,10 @@ function initApp() {
         checkbox.addEventListener('change', updateSelectedDaysDisplay);
     });
     
+    // تحديث تلقائي للفترة الزمنية عند تغيير تاريخ البداية
+    startYear.addEventListener('change', updatePeriodEndDate);
+    startMonthPeriod.addEventListener('change', updatePeriodEndDate);
+    
     // حساب تلقائي عند تحميل الصفحة
     calculateReport();
 }
@@ -96,7 +90,6 @@ function initYears() {
     
     // تعبئة جميع قوائم السنوات
     fillYearSelect(yearSelect, years);
-    fillYearSelect(rangeYearSelect, years);
     fillYearSelect(annualYearSelect, years);
     fillYearSelect(startYear, years);
     fillYearSelect(endYear, years);
@@ -104,6 +97,8 @@ function initYears() {
 
 // دالة مساعدة لتعبية قائمة السنوات
 function fillYearSelect(selectElement, years) {
+    // تفريغ القائمة أولاً
+    selectElement.innerHTML = '';
     years.forEach(year => {
         const option = document.createElement('option');
         option.value = year;
@@ -112,19 +107,63 @@ function fillYearSelect(selectElement, years) {
     });
 }
 
-// تعيين الشهر الحالي
-function setCurrentMonth() {
-    const currentMonth = new Date().getMonth() + 1;
-    const currentYear = new Date().getFullYear();
+// تعيين التواريخ الافتراضية
+function setDefaultDates() {
+    const currentDate = new Date();
+    const currentMonth = currentDate.getMonth() + 1;
+    const currentYear = currentDate.getFullYear();
     
+    // تعيين التاريخ الحالي للتقارير الشهرية والسنوية
+    yearSelect.value = currentYear;
     monthSelect.value = currentMonth;
-    startMonth.value = currentMonth;
-    endMonth.value = currentMonth;
-    startMonthPeriod.value = currentMonth;
-    endMonthPeriod.value = currentMonth;
+    annualYearSelect.value = currentYear;
     
-    // تعيين سنة النهاية لتكون سنة البداية + 1
-    endYear.value = currentYear + 1;
+    // تعيين تاريخ البداية للفترة الزمنية
+    startYear.value = currentYear;
+    startMonthPeriod.value = currentMonth;
+    
+    // حساب تاريخ النهاية بعد 3 أشهر
+    updatePeriodEndDate();
+}
+
+// تحديث تاريخ النهاية للفترة الزمنية (3 أشهر لاحقة) - الإصدار المصحح النهائي
+function updatePeriodEndDate() {
+    const startY = parseInt(startYear.value);
+    const startM = parseInt(startMonthPeriod.value);
+    
+    // حساب تاريخ النهاية بعد 3 أشهر (بما في ذلك الشهر الحالي)
+    let endMonth = startM + 2; // نهاية الفترة بعد شهرين من الشهر الحالي (المجموع 3 أشهر)
+    let endYear = startY;
+    
+    // التصحيح: معالجة تجاوز الشهر 12 بشكل صحيح
+    if (endMonth > 12) {
+        // حساب عدد السنوات الإضافية
+        const yearsToAdd = Math.floor((endMonth - 1) / 12);
+        endYear += yearsToAdd;
+        endMonth = endMonth - (yearsToAdd * 12);
+    }
+    
+    // تحديث عناصر select بشكل صحيح
+    // نبحث عن الخيار المناسب في قائمة السنوات
+    const endYearSelect = document.getElementById('endYear');
+    const endMonthSelect = document.getElementById('endMonthPeriod');
+    
+    // تعيين سنة النهاية
+    if (endYearSelect.querySelector(`option[value="${endYear}"]`)) {
+        endYearSelect.value = endYear;
+    } else {
+        // إذا لم تكن السنة موجودة، نضيفها
+        const newOption = document.createElement('option');
+        newOption.value = endYear;
+        newOption.textContent = endYear;
+        endYearSelect.appendChild(newOption);
+        endYearSelect.value = endYear;
+    }
+    
+    // تعيين شهر النهاية
+    endMonthSelect.value = endMonth;
+    
+    console.log(`تم تحديث الفترة: من ${startM}/${startY} إلى ${endMonth}/${endYear}`);
 }
 
 // تحديث عرض الأيام المختارة
@@ -174,10 +213,6 @@ function handleReportTypeChange(event) {
         case 'monthly':
             document.getElementById('monthlyInput').style.display = 'block';
             monthlyResults.style.display = 'block';
-            break;
-        case 'range':
-            document.getElementById('rangeInput').style.display = 'block';
-            rangeResults.style.display = 'block';
             break;
         case 'annual':
             document.getElementById('annualInput').style.display = 'block';
@@ -237,9 +272,6 @@ function calculateReport() {
             case 'monthly':
                 calculateMonthlyReport();
                 break;
-            case 'range':
-                calculateRangeReport();
-                break;
             case 'annual':
                 calculateAnnualReport();
                 break;
@@ -287,64 +319,6 @@ function calculateMonthlyReport() {
     updateResult(totalResult, `${totalDays} يوم`);
     updateResult(weekendResult, `${fridayDays} يوم`);
     updateResult(workdaysResult, `${workdays} يوم`);
-}
-
-// حساب تقرير نطاق الشهور
-function calculateRangeReport() {
-    const year = parseInt(rangeYearSelect.value);
-    const start = parseInt(startMonth.value);
-    const end = parseInt(endMonth.value);
-    const group1Days = getGroupDays('group1');
-    const group2Days = getGroupDays('group2');
-    
-    if (group1Days.length === 0 || group2Days.length === 0) {
-        alert('يرجى اختيار أيام على الأقل لكل مجموعة');
-        return;
-    }
-    
-    if (start > end) {
-        alert('الشهر الأول يجب أن يكون قبل الشهر الأخير');
-        return;
-    }
-    
-    // تحديث العنوان
-    rangeTitle.textContent = `نتائج نطاق الشهور: من ${months[start-1]} إلى ${months[end-1]} ${year}`;
-    
-    let rangeGroup1Total = 0;
-    let rangeGroup2Total = 0;
-    let rangeDaysTotal = 0;
-    let rangeWeekendTotal = 0;
-    
-    // تفريغ الجدول
-    rangeTableBody.innerHTML = '';
-    
-    // حساب كل شهر في النطاق
-    for (let month = start; month <= end; month++) {
-        const group1Count = countGroupDays(year, month, group1Days);
-        const group2Count = countGroupDays(year, month, group2Days);
-        const totalDays = getDaysInMonth(year, month);
-        const fridayDays = countFridays(year, month);
-        
-        // تحديث المجاميع
-        rangeGroup1Total += group1Count;
-        rangeGroup2Total += group2Count;
-        rangeDaysTotal += totalDays;
-        rangeWeekendTotal += fridayDays;
-        
-        // إضافة صف للجدول
-        const row = document.createElement('tr');
-        row.innerHTML = `
-            <td>${months[month - 1]}</td>
-            <td>${group1Count}</td>
-            <td>${group2Count}</td>
-            <td>${totalDays}</td>
-            <td>${fridayDays}</td>
-        `;
-        rangeTableBody.appendChild(row);
-    }
-    
-    // تحديث المجاميع النهائية
-    updateRangeTotals(rangeGroup1Total, rangeGroup2Total, rangeDaysTotal, rangeWeekendTotal);
 }
 
 // حساب التقرير السنوي
@@ -432,6 +406,7 @@ function calculatePeriodReport() {
     // حساب الفترة الزمنية
     let currentYear = startY;
     let currentMonth = startM;
+    let monthCount = 0;
     
     while (currentYear < endY || (currentYear === endY && currentMonth <= endM)) {
         const group1Count = countGroupDays(currentYear, currentMonth, group1Days);
@@ -444,6 +419,7 @@ function calculatePeriodReport() {
         periodGroup2Total += group2Count;
         periodDaysTotal += totalDays;
         periodWeekendTotal += fridayDays;
+        monthCount++;
         
         // إضافة صف للجدول
         const row = document.createElement('tr');
@@ -466,14 +442,6 @@ function calculatePeriodReport() {
     
     // تحديث المجاميع النهائية
     updatePeriodTotals(periodGroup1Total, periodGroup2Total, periodDaysTotal, periodWeekendTotal);
-}
-
-// تحديث مجاميع نطاق الشهور
-function updateRangeTotals(group1Total, group2Total, daysTotal, weekendTotal) {
-    rangeGroup1Total.textContent = group1Total;
-    rangeGroup2Total.textContent = group2Total;
-    rangeDaysTotal.textContent = daysTotal;
-    rangeWeekendTotal.textContent = weekendTotal;
 }
 
 // تحديث المجاميع السنوية
@@ -511,13 +479,6 @@ function saveReport() {
             const month = parseInt(monthSelect.value);
             fileContent = generateMonthlyReport(year, month, group1Days, group2Days);
             filename = `تقرير_شهري_${months[month-1]}_${year}.txt`;
-            break;
-        case 'range':
-            const rangeYear = parseInt(rangeYearSelect.value);
-            const start = parseInt(startMonth.value);
-            const end = parseInt(endMonth.value);
-            fileContent = generateRangeReport(rangeYear, start, end, group1Days, group2Days);
-            filename = `تقرير_نطاق_${months[start-1]}_إلى_${months[end-1]}_${rangeYear}.txt`;
             break;
         case 'annual':
             const annualYear = parseInt(annualYearSelect.value);
@@ -562,46 +523,6 @@ function generateMonthlyReport(year, month, group1Days, group2Days) {
     content += `أيام الإجازة (الجمعة): ${fridayDays} يوم\n`;
     content += `أيام العمل: ${workdays} يوم\n\n`;
     
-    content += `تم إنشاء التقرير في: ${new Date().toLocaleString('ar-SA')}\n`;
-    
-    return content;
-}
-
-// إنشاء محتوى تقرير نطاق الشهور
-function generateRangeReport(year, start, end, group1Days, group2Days) {
-    let content = `تقرير أيام الحضور لنطاق الشهور\n`;
-    content += '='.repeat(50) + '\n\n';
-    
-    content += `الفترة: من ${months[start-1]} إلى ${months[end-1]} ${year}\n\n`;
-    
-    content += `المجموعة الأولى: ${getSelectedDays('group1').join('، ')}\n`;
-    content += `المجموعة الثانية: ${getSelectedDays('group2').join('، ')}\n\n`;
-    
-    content += 'الشهر\t\tالمجموعة الأولى\tالمجموعة الثانية\tالإجمالي\tأيام الإجازة\n';
-    content += '-'.repeat(80) + '\n';
-    
-    let rangeGroup1Total = 0;
-    let rangeGroup2Total = 0;
-    let rangeDaysTotal = 0;
-    let rangeWeekendTotal = 0;
-    
-    // جمع البيانات لكل شهر في النطاق
-    for (let month = start; month <= end; month++) {
-        const group1Count = countGroupDays(year, month, group1Days);
-        const group2Count = countGroupDays(year, month, group2Days);
-        const totalDays = getDaysInMonth(year, month);
-        const fridayDays = countFridays(year, month);
-        
-        rangeGroup1Total += group1Count;
-        rangeGroup2Total += group2Count;
-        rangeDaysTotal += totalDays;
-        rangeWeekendTotal += fridayDays;
-        
-        content += `${months[month - 1]}\t\t${group1Count}\t\t${group2Count}\t\t${totalDays}\t\t${fridayDays}\n`;
-    }
-    
-    content += '-'.repeat(80) + '\n';
-    content += `المجموع\t\t${rangeGroup1Total}\t\t${rangeGroup2Total}\t\t${rangeDaysTotal}\t\t${rangeWeekendTotal}\n\n`;
     content += `تم إنشاء التقرير في: ${new Date().toLocaleString('ar-SA')}\n`;
     
     return content;

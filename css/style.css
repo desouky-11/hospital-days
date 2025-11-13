@@ -140,7 +140,7 @@ header h1 {
 
 .report-types {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 15px;
 }
 
@@ -223,13 +223,6 @@ header h1 {
     opacity: 0.7;
 }
 
-/* إدخال نطاق الشهور */
-.range-inputs {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 15px;
-}
-
 /* إدخال الفترة الزمنية */
 .period-inputs {
     display: grid;
@@ -251,6 +244,22 @@ header h1 {
     font-size: 18px;
     border-bottom: 2px solid #3498db;
     padding-bottom: 8px;
+}
+
+.period-info {
+    background: #e3f2fd;
+    padding: 15px;
+    border-radius: 8px;
+    border: 1px solid #3498db;
+    margin-top: 15px;
+    text-align: center;
+}
+
+.period-info p {
+    margin: 0;
+    color: #1976d2;
+    font-size: 14px;
+    font-weight: 500;
 }
 
 /* الأزرار */
@@ -426,7 +435,6 @@ header h1 {
 }
 
 /* جداول النتائج */
-.range-table-container,
 .annual-table-container,
 .period-table-container {
     overflow-x: auto;
@@ -435,7 +443,6 @@ header h1 {
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
-.range-table,
 .annual-table,
 .period-table {
     width: 100%;
@@ -445,7 +452,6 @@ header h1 {
     min-width: 600px;
 }
 
-.range-table th,
 .annual-table th,
 .period-table th {
     background: linear-gradient(135deg, #34495e, #2c3e50);
@@ -456,7 +462,6 @@ header h1 {
     border: none;
 }
 
-.range-table td,
 .annual-table td,
 .period-table td {
     padding: 12px 15px;
@@ -464,13 +469,11 @@ header h1 {
     border-bottom: 1px solid #ecf0f1;
 }
 
-.range-table tr:hover,
 .annual-table tr:hover,
 .period-table tr:hover {
     background-color: #f8f9fa;
 }
 
-.range-total,
 .annual-total,
 .period-total {
     background-color: #e74c3c !important;
@@ -478,7 +481,6 @@ header h1 {
     font-weight: bold;
 }
 
-.range-total td,
 .annual-total td,
 .period-total td {
     border-bottom: none;
@@ -545,10 +547,6 @@ header h1 {
     }
     
     /* الإدخال */
-    .range-inputs {
-        grid-template-columns: 1fr;
-    }
-    
     .period-inputs {
         grid-template-columns: 1fr;
     }
@@ -576,15 +574,12 @@ header h1 {
     }
     
     /* الجداول */
-    .range-table,
     .annual-table,
     .period-table {
         font-size: 14px;
         min-width: 500px;
     }
     
-    .range-table th,
-    .range-table td,
     .annual-table th,
     .annual-table td,
     .period-table th,
@@ -621,6 +616,10 @@ header h1 {
         padding: 15px;
     }
     
+    .period-group {
+        padding: 15px;
+    }
+    
     .form-control {
         padding: 10px 12px;
         font-size: 14px;
@@ -632,15 +631,12 @@ header h1 {
         font-size: 14px;
     }
     
-    .range-table,
     .annual-table,
     .period-table {
         min-width: 400px;
         font-size: 12px;
     }
     
-    .range-table th,
-    .range-table td,
     .annual-table th,
     .annual-table td,
     .period-table th,
@@ -664,7 +660,7 @@ header h1 {
     }
     
     .report-types {
-        grid-template-columns: repeat(4, 1fr);
+        grid-template-columns: repeat(3, 1fr);
     }
 }
 
