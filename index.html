@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>حاسبة أيام الحضور الشهرية</title>
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>حاسبة أيام الحضور الشهرية</h1>
+        </header>
+
+        <main class="main-content">
+            <div class="input-section">
+                <div class="form-group">
+                    <label for="yearSelect">اختر السنة:</label>
+                    <select id="yearSelect" class="form-control">
+                        <!-- سيتم تعبئته بالجافاسكريبت -->
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="monthSelect">اختر الشهر:</label>
+                    <select id="monthSelect" class="form-control">
+                        <option value="1">يناير</option>
+                        <option value="2">فبراير</option>
+                        <option value="3">مارس</option>
+                        <option value="4">أبريل</option>
+                        <option value="5">مايو</option>
+                        <option value="6">يونيو</option>
+                        <option value="7">يوليو</option>
+                        <option value="8">أغسطس</option>
+                        <option value="9">سبتمبر</option>
+                        <option value="10">أكتوبر</option>
+                        <option value="11">نوفمبر</option>
+                        <option value="12">ديسمبر</option>
+                    </select>
+                </div>
+
+                <button id="calculateBtn" class="calculate-btn">احسب عدد أيام الحضور</button>
+            </div>
+
+            <div class="results-section">
+                <h2>نتائج الحساب</h2>
+                
+                <div class="result-group">
+                    <div class="result-item">
+                        <span class="result-label group-a">المجموعة أ:</span>
+                        <span id="group1Result" class="result-value">0 يوم</span>
+                        <span class="result-days">(السبت، الاثنين، الأربعاء)</span>
+                    </div>
+                    
+                    <div class="result-item">
+                        <span class="result-label group-b">المجموعة ب:</span>
+                        <span id="group2Result" class="result-value">0 يوم</span>
+                        <span class="result-days">(الأحد، الثلاثاء، الخميس)</span>
+                    </div>
+                    
+                    <div class="result-item total">
+                        <span class="result-label total-label">إجمالي أيام الشهر:</span>
+                        <span id="totalResult" class="result-value">0 يوم</span>
+                    </div>
+                </div>
+
+                <div class="details-section">
+                    <h3>تفاصيل إضافية</h3>
+                    
+                    <div class="detail-item">
+                        <span class="detail-label">عدد أيام الإجازة (الجمعة):</span>
+                        <span id="weekendResult" class="detail-value">0 يوم</span>
+                    </div>
+                    
+                    <div class="detail-item">
+                        <span class="detail-label">عدد أيام العمل (السبت إلى الخميس):</span>
+                        <span id="workdaysResult" class="detail-value">0 يوم</span>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="./js/script.js"></script>
+</body>
+</html>

@@ -1,0 +1,254 @@
+/* إعدادات عامة */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    padding: 20px;
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    overflow: hidden;
+}
+
+/* العنوان */
+header {
+    background: linear-gradient(135deg, #2c3e50, #34495e);
+    color: white;
+    padding: 25px;
+    text-align: center;
+}
+
+header h1 {
+    font-size: 28px;
+    font-weight: 600;
+    margin: 0;
+}
+
+/* المحتوى الرئيسي */
+.main-content {
+    padding: 30px;
+}
+
+/* قسم الإدخال */
+.input-section {
+    background: #f8f9fa;
+    padding: 25px;
+    border-radius: 10px;
+    margin-bottom: 25px;
+    border: 1px solid #e9ecef;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #2c3e50;
+    font-size: 16px;
+}
+
+.form-control {
+    width: 100%;
+    padding: 12px 15px;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    font-size: 16px;
+    transition: all 0.3s ease;
+    background: white;
+}
+
+.form-control:focus {
+    outline: none;
+    border-color: #3498db;
+    box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+}
+
+.calculate-btn {
+    width: 100%;
+    background: linear-gradient(135deg, #27ae60, #2ecc71);
+    color: white;
+    border: none;
+    padding: 15px;
+    font-size: 18px;
+    font-weight: 600;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 10px;
+}
+
+.calculate-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(39, 174, 96, 0.4);
+}
+
+.calculate-btn:active {
+    transform: translateY(0);
+}
+
+/* قسم النتائج */
+.results-section {
+    background: white;
+    padding: 25px;
+    border-radius: 10px;
+    border: 1px solid #e9ecef;
+}
+
+.results-section h2 {
+    color: #2c3e50;
+    margin-bottom: 20px;
+    text-align: center;
+    font-size: 24px;
+    border-bottom: 2px solid #3498db;
+    padding-bottom: 10px;
+}
+
+.result-group {
+    margin-bottom: 25px;
+}
+
+.result-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 0;
+    border-bottom: 1px solid #ecf0f1;
+}
+
+.result-item.total {
+    border-bottom: none;
+    border-top: 2px solid #e74c3c;
+    margin-top: 10px;
+    padding-top: 15px;
+}
+
+.result-label {
+    font-weight: 600;
+    font-size: 16px;
+    min-width: 150px;
+}
+
+.result-label.group-a {
+    color: #3498db;
+}
+
+.result-label.group-b {
+    color: #e67e22;
+}
+
+.result-label.total-label {
+    color: #e74c3c;
+    font-size: 18px;
+}
+
+.result-value {
+    font-weight: 700;
+    font-size: 18px;
+    min-width: 80px;
+}
+
+.result-days {
+    color: #7f8c8d;
+    font-size: 14px;
+    text-align: left;
+    flex: 1;
+}
+
+/* قسم التفاصيل */
+.details-section {
+    background: #f8f9fa;
+    padding: 20px;
+    border-radius: 8px;
+    border: 1px solid #e9ecef;
+}
+
+.details-section h3 {
+    color: #2c3e50;
+    margin-bottom: 15px;
+    text-align: center;
+    font-size: 20px;
+}
+
+.detail-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid #dee2e6;
+}
+
+.detail-item:last-child {
+    border-bottom: none;
+}
+
+.detail-label {
+    font-weight: 500;
+    color: #2c3e50;
+}
+
+.detail-value {
+    font-weight: 700;
+    color: #9b59b6;
+}
+
+/* التجاوب مع الشاشات الصغيرة */
+@media (max-width: 768px) {
+    .container {
+        margin: 10px;
+        border-radius: 10px;
+    }
+    
+    .main-content {
+        padding: 20px;
+    }
+    
+    header h1 {
+        font-size: 24px;
+    }
+    
+    .result-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 5px;
+    }
+    
+    .result-days {
+        text-align: right;
+    }
+    
+    .detail-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 5px;
+    }
+}
+
+/* تأثيرات للقيم عند التحديث */
+.result-value, .detail-value {
+    transition: all 0.3s ease;
+}
+
+.value-updated {
+    animation: pulse 0.5s ease;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+}
